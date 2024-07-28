@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+
+  backend:
+    build: .
+    container_name: dydxprojectbackend
+    command: gunicorn core.wsgi --bind 0.0.0.0:8000
+    volumes:
+      - ./core:/app
+      - static_volume:/app/static
+      - media_volume:/app/media
+
+    expose:
+      - "8000"
+    environment:
+      - SECRET_KEY=dydxprojshmos
+      - DEBUG=False
+    restart: always
+
+  
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: always
+    ports: 
+      - "80:80"
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - static_volume:/home/app/static
+      - media_volume:/home/app/media
+
+    depends_on:
+      - backend
+  
+    
+
+
+volumes:
+  static_volume:
+  media_volume:

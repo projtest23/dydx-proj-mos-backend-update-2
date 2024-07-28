@@ -1,0 +1,11 @@
+# general  modules
+django >3.2,<3.3
+djangorestframework
+djangorestframework-simplejwt
+yfinance
+django-cors-headers
+python-decouple
+jdatetime
+
+# deployment module
+gunicorn
